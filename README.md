@@ -17,5 +17,5 @@ After modifying the spec, set a new version number (2nd line in schema.json).
 After committing create a new release using the new version number as tag. This way, the new spec is accessible via w3id.org. Example:
 
 ```
-https://w3id.org/iqb/spec/unit-rich-notes/1.6
+https://w3id.org/iqb/spec/unit-items/1.6
 ```
