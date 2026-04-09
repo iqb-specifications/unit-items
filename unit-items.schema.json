@@ -1,0 +1,78 @@
+{
+  "$id": "unit-items@0.1",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Unit Items.",
+  "description": "Specification for items as part of the unit data.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "uuid": {
+        "description": "Hidden unique Id to find items better in big pools; generated automatically",
+        "type": "string",
+        "examples": [
+          "d19188fc-02e3-439e-9ff9-4f8280f9f01c"
+        ]
+      },
+      "id": {
+        "description": "Visual Id, input by user",
+        "type": "string",
+        "examples": [
+          "Drr4"
+        ]
+      },
+      "description": {
+        "type": "string"
+      },
+      "order": {
+        "type": "number",
+        "default": 0
+      },
+      "sourceVariableId": {
+        "description": "Id of variable providing value, code and/or score for the item",
+        "type": "string"
+      },
+      "sourceVariableUuid": {
+        "description": "Hidden unique Id of variable providing value, code and/or score for the item",
+        "type": "string"
+      },
+      "visualAnchorVariableId": {
+        "description": "Id of variable used to jump/scroll to the item to show/review",
+        "type": "string"
+      },
+      "visualAnchorVariableUuid": {
+        "description": "Hidden unique Id of variable jump/scroll to the item to show/review",
+        "type": "string"
+      },
+      "createdAt": {
+        "description": "Timestamp of creation",
+        "type": "string",
+        "examples": [
+          "2026-04-09T13:15:10.977Z"
+        ]
+      },
+      "changedAt": {
+        "description": "Timestamp of last change",
+        "type": "string",
+        "examples": [
+          "2026-04-09T13:15:10.977Z"
+        ]
+      },
+      "metadata": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/metadata"
+        }
+      }
+    },
+    "required": [
+      "id"
+    ],
+    "additionalProperties": false
+  },
+  "$defs": {
+    "metadata": {
+      "$ref": "https://w3id.org/iqb/spec/metadata-values/3.0"
+    }
+  }
+}

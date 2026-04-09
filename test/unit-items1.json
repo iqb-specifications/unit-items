@@ -1,0 +1,20 @@
+[
+    {
+        "uuid": "d19188fc-02e3-439e-9ff9-4f8280f9f01c",
+        "id": "Drr4",
+        "order": 0,
+        "createdAt": "2026-04-09T13:15:10.977Z",
+        "changedAt": "2026-04-09T13:15:10.977Z"
+    },
+    {
+        "uuid": "1a1a4296-dc38-4f2a-8ceb-e0c2067482ee",
+        "id": "Uz788",
+        "order": 0,
+        "sourceVariableId": "radio_1",
+        "sourceVariableUuid": "radio_1741871545529_1",
+        "description": "wefewgbb",
+        "createdAt": "2026-04-09T13:15:10.977Z",
+        "changedAt": "2026-04-09T13:15:10.977Z",
+        "metadata": []
+    }
+]
