@@ -1,0 +1,15 @@
+[
+    {
+        "uuid": "2f8fd99b-b171-4284-adc1-bf9ef03fbe18",
+        "id": "Anchor-1",
+        "order": 1,
+        "description": "Item with dedicated anchor and source variables",
+        "sourceVariableId": "text_1",
+        "sourceVariableUuid": "text_1741871545529_1",
+        "visualAnchorVariableId": "page_anchor_1",
+        "visualAnchorVariableUuid": "page_anchor_1741871545529_1",
+        "createdAt": "2026-04-09T13:15:10.977Z",
+        "changedAt": "2026-04-09T13:15:10.977Z",
+        "metadata": []
+    }
+]

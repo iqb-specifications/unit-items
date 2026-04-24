@@ -10,6 +10,7 @@
       "uuid": {
         "description": "Hidden unique Id to find items better in big pools; generated automatically",
         "type": "string",
+        "minLength": 1,
         "examples": [
           "d19188fc-02e3-439e-9ff9-4f8280f9f01c"
         ]
@@ -17,6 +18,7 @@
       "id": {
         "description": "Visual Id, input by user",
         "type": "string",
+        "minLength": 1,
         "examples": [
           "Drr4"
         ]
@@ -25,28 +27,33 @@
         "type": "string"
       },
       "order": {
-        "type": "number",
+        "type": "integer",
         "default": 0
       },
       "sourceVariableId": {
         "description": "Id of variable providing value, code and/or score for the item",
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "sourceVariableUuid": {
         "description": "Hidden unique Id of variable providing value, code and/or score for the item",
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "visualAnchorVariableId": {
         "description": "Id of variable used to jump/scroll to the item to show/review",
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "visualAnchorVariableUuid": {
         "description": "Hidden unique Id of variable jump/scroll to the item to show/review",
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "createdAt": {
         "description": "Timestamp of creation",
         "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
         "examples": [
           "2026-04-09T13:15:10.977Z"
         ]
@@ -54,6 +61,7 @@
       "changedAt": {
         "description": "Timestamp of last change",
         "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$",
         "examples": [
           "2026-04-09T13:15:10.977Z"
         ]
@@ -67,6 +75,56 @@
     },
     "required": [
       "id"
+    ],
+    "allOf": [
+      {
+        "if": {
+          "required": [
+            "sourceVariableId"
+          ]
+        },
+        "then": {
+          "required": [
+            "sourceVariableUuid"
+          ]
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "sourceVariableUuid"
+          ]
+        },
+        "then": {
+          "required": [
+            "sourceVariableId"
+          ]
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "visualAnchorVariableId"
+          ]
+        },
+        "then": {
+          "required": [
+            "visualAnchorVariableUuid"
+          ]
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "visualAnchorVariableUuid"
+          ]
+        },
+        "then": {
+          "required": [
+            "visualAnchorVariableId"
+          ]
+        }
+      }
     ],
     "additionalProperties": false
   },

@@ -17,5 +17,5 @@ channels:
         messageId: select_schema
 components:
   schemas:
-    metadata-values:
+    unit-items:
       $ref: 'unit-items.schema.json'

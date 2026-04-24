@@ -7,36 +7,71 @@ on:
     branches:
       - main
 
-name: Generate Html und Publish
+name: Validate and Publish Docs
 
 jobs:
-  deploy-build:
+  validate:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
-      pages: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-         node-version: 20
-      - name: Prepare repo
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
         run: |
-          git fetch origin
-          git config --global user.email "mechtel@iqb.hu-berlin.de"
-          git config --global user.name "Martin Mechtel"
-          git checkout gh-pages
-          git reset --hard main
-      - name: Run html generation
+          npm ci
+      - name: Validate schema and examples
+        run: |
+          npm run validate-schema
+      - name: Generate html documentation
+        run: |
+          npm run generate_docs
+
+  publish-docs:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Build documentation artifact
         run: |
           npm ci
           npm run generate_docs
-          mv public docs
-      - name: Push changes
+          rm -rf /tmp/unit-items-docs
+          mkdir -p /tmp/unit-items-docs
+          mv public /tmp/unit-items-docs/public
+      - name: Publish docs to gh-pages
         run: |
-          git add docs
+          git config --global user.email "mechtel@iqb.hu-berlin.de"
+          git config --global user.name "Martin Mechtel"
+
+          if git ls-remote --exit-code --heads origin gh-pages; then
+            git fetch origin gh-pages
+            git switch --force-create gh-pages FETCH_HEAD
+          else
+            git switch --orphan gh-pages
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          mkdir -p docs
+          cp -R /tmp/unit-items-docs/public/. docs/
+          touch .nojekyll
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No documentation changes to publish."
+            exit 0
+          fi
+
           git commit -m "update gh-pages"
-          git push -f
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git push --force-with-lease origin gh-pages
