@@ -1,5 +1,5 @@
 {
-  "$id": "unit-items@0.1",
+  "$id": "unit-items@0.2",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Unit Items.",
   "description": "Specification for items as part of the unit data.",
@@ -34,14 +34,6 @@
       },
       "sourceVariableUuid": {
         "description": "Hidden unique Id of variable providing value, code and/or score for the item",
-        "type": "string"
-      },
-      "visualAnchorVariableId": {
-        "description": "Id of variable used to jump/scroll to the item to show/review",
-        "type": "string"
-      },
-      "visualAnchorVariableUuid": {
-        "description": "Hidden unique Id of variable jump/scroll to the item to show/review",
         "type": "string"
       },
       "createdAt": {
